@@ -1,6 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import PushNotification from './components/PushNotification';
+
+const AppNavigator = createStackNavigator(
+  {
+    PushNotification: {
+      Screen: PushNotification,
+      navigationOptions: {
+        headerShown: false
+      }
+    }
+  },
+  {
+    initialRouteName: 'PushNotification',
+  }
+);
 
 export default function App() {
   return (

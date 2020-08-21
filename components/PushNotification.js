@@ -20,7 +20,7 @@ export default function App() {
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
+    await new Promise(r => setTimeout(r, 2000));
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
@@ -30,7 +30,7 @@ export default function App() {
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
     });
-
+    
     return () => {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
