@@ -22,6 +22,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "notification": {
+      "vapidPublicKey": "BOGIEh9K7U7gLWMjD8WuLDeJG_yYG9ZjBIhglmoCNkQW57YbesUwzqlWOKi64gXCk2KE3gAiHg_2E4vnf6hn57Y"
+    },
     "description": ""
   }
 }
