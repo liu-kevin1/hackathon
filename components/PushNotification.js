@@ -20,21 +20,37 @@ export default function App() {
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-    await new Promise(r => setTimeout(r, 2000));
-    // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
-
-    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
     
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener);
-      Notifications.removeNotificationSubscription(responseListener);
-    };
+    setTimeout(function() {
+        // This listener is fired whenever a notification is received while the app is foregrounded
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+          setNotification(notification);
+        });
+
+        // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+          console.log(response);
+        });
+        
+        return () => {
+          Notifications.removeNotificationSubscription(notificationListener);
+          Notifications.removeNotificationSubscription(responseListener);
+        };
+    }, (3 * 1000));
+    // // This listener is fired whenever a notification is received while the app is foregrounded
+    // notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+    //   setNotification(notification);
+    // });
+
+    // // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    // responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    //   console.log(response);
+    // });
+    
+    // return () => {
+    //   Notifications.removeNotificationSubscription(notificationListener);
+    //   Notifications.removeNotificationSubscription(responseListener);
+    // };
   }, []);
 
   return (
