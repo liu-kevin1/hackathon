@@ -6,7 +6,8 @@ import { StyleSheet, Text, View, Button, Platform } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Home from './components/Home';
-import Login from './components/Login';
+//import Login from './components/Login';
+import PushNotificationManager from './components/PushNotification';
 
 const AppNavigator = createStackNavigator(
   {
@@ -15,14 +16,15 @@ const AppNavigator = createStackNavigator(
       navigationOptions: {
         headerShown: false
       }
-    },
+    }
+    // },
 
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        headerShown: false
-      }
-    },
+    // Login: {
+    //   screen: Login,
+    //   navigationOptions: {
+    //     headerShown: false
+    //   }
+    // },
 
   },
   {
@@ -34,6 +36,16 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
   render() {
+    console.log("App.js > app made");
+
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
+    NotifManager = PushNotificationManager();
+    NotifManager.test(expoPushToken);
+
     return <AppContainer/>;
   }
 }

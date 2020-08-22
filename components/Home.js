@@ -15,7 +15,7 @@ import {
 
 class Home extends Component {
   constructor(props) {
-    console.log("home");
+    console.log("Home.js > home");
     super(props);
     this.state = {
       user: "test user"
@@ -27,7 +27,7 @@ class Home extends Component {
         // ui stuff here
         <View>
             <Text>
-                Hello
+                Home Screen
             </Text>
         </View>
     );
@@ -39,13 +39,6 @@ class Home extends Component {
 const styles = StyleSheet.create({
   // style sheets here
 });
-
-class Test extends React.Component {
-  constructor(props) {
-    console.log("Test");
-    super(props);
-  }
-}
 
 //export default Test; 
 

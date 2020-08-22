@@ -3,6 +3,7 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, Button, Platform } from 'react-native';
+import BackgroundTimer from 'react-native-background-timer';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -35,6 +36,10 @@ class PushNotificationManager {
     }, []);
   }
 
+  test(expoPushToken) {
+    this.sendPushNotification(expoPushToken, "title test", "body test");
+  }
+
   sendPushNotification(expoPushToken, title, body) {
     sendPushNotification2(expoPushToken, title, body)
   }
@@ -44,6 +49,7 @@ class PushNotificationManager {
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
 async function sendPushNotification2(expoPushToken, title="Test Title", body="Test Body") {
+  console.log("PushNotification.js > sending push notification");
   const message = {
     to: expoPushToken,
     sound: 'default',
@@ -93,3 +99,14 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+
+export default PushNotificationManager;
+
+// BackgroundTimer.runBackgroundTimer(() => { 
+//   //code that will be called every 3 seconds 
+//   console.log("it lives");
+// }, 
+// 3000);
+// //rest of code will be performing for iOS on background too
+
+// BackgroundTimer.stopBackgroundTimer(); //after this call all code on background stop run.
