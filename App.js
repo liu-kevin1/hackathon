@@ -11,14 +11,14 @@ import Login from './components/Login';
 const AppNavigator = createStackNavigator(
   {
     Home: {
-      Screen: Home,
+      screen: Home,
       navigationOptions: {
         headerShown: false
       }
     },
 
     Login: {
-      Screen: Login,
+      screen: Login,
       navigationOptions: {
         headerShown: false
       }
