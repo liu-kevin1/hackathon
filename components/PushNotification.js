@@ -3,48 +3,30 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, Button, Platform } from 'react-native';
-import BackgroundTimer from 'react-native-background-timer';
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+//import BackgroundTimer from 'react-native-background-timer';
 
 class PushNotificationManager {
   constructor(props) {
-    // Connect the useEffect event
-    useEffect(() => {
-      registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-      
-      // This listener is fired whenever a notification is received while the app is foregrounded
-      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-        setNotification(notification);
-      });
-        
-      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-        console.log(response);
-      });
-      
-      return () => {
-        Notifications.removeNotificationSubscription(notificationListener);
-        Notifications.removeNotificationSubscription(responseListener);
-      };
-    }, []);
-  }
+    console.log("yes");
+    let BackgroundTimer = require('react-native-background-timer');
+    console.log("yes2");
+    BackgroundTimer.runBackgroundTimer(() => { 
+      //code that will be called every 3 seconds 
+      console.log("it lives");
+    }, 
+    3000);
+    //rest of code will be performing for iOS on background too
+    
+    BackgroundTimer.stopBackgroundTimer(); //after this call all code on background stop run.
 
-  test(expoPushToken) {
-    this.sendPushNotification(expoPushToken, "title test", "body test");
   }
+  // test(expoPushToken) {
+  //   this.sendPushNotification(expoPushToken, "title test", "body test");
+  // }
 
   sendPushNotification(expoPushToken, title, body) {
     sendPushNotification2(expoPushToken, title, body)
   }
-
-
 }
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
@@ -67,37 +49,6 @@ async function sendPushNotification2(expoPushToken, title="Test Title", body="Te
     },
     body: JSON.stringify(message),
   });
-}
-
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Constants.isDevice) {
-    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  return token;
 }
 
 export default PushNotificationManager;
