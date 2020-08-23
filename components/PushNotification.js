@@ -8,6 +8,9 @@ import { Text, View, Button, Platform } from 'react-native';
 class PushNotificationManager {
   constructor(props) {
     console.log("yes");
+    // HERE
+    // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    // For some reason, getting BackgroundTimer errors. Find out why and fix it so that it can be used!
     let BackgroundTimer = require('react-native-background-timer');
     console.log("yes2");
     BackgroundTimer.runBackgroundTimer(() => { 
